@@ -53,9 +53,13 @@ public class AddTask extends AppCompatActivity {
             tasks = new Task[1];
             tasks[0] = new Task(taskName, taskDesc, false);
         } else {
-            Task[] tempTasks = Arrays.copyOf(tasks, tasks.length + 1);
-            tempTasks[tasks.length] = new Task(taskName, taskDesc, false);
-            tasks = tempTasks;
+            int oldLength = tasks.length;
+            Task[] tempArray = new Task[oldLength + 1];
+            for (int i = 0; i < oldLength; i++) {
+                tempArray[i] = tasks[i];
+            }
+            tempArray[oldLength] = new Task(taskName, taskDesc, false);
+            tasks = tempArray;
         }
 
         String tasksString = gson.toJson(tasks);
